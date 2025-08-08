@@ -1,0 +1,178 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4.1.2-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: petdigital
+      RABBITMQ_DEFAULT_PASS: oquequehavelhinho14$
+    networks:
+      - petdigital-net
+
+  redis:
+    image: redis:8.0.3
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - petdigital-net
+
+  kong-db:
+    image: postgres:17
+    container_name: kong-db
+    restart: always
+    environment:
+      POSTGRES_USER: kong
+      POSTGRES_PASSWORD: oquequehavelhinho15$
+      POSTGRES_DB: kong_db
+    volumes:
+      - kong_db_data:/var/lib/postgresql/data
+    networks:
+      - petdigital-net
+    ports:
+      - '5434:5432'
+
+  kong-migrations:
+    image: kong:latest
+    container_name: kong-migrations
+    restart: on-failure
+    command: 'kong migrations bootstrap'
+    depends_on:
+      - kong-db
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-db
+      KONG_PG_USER: kong
+      KONG_PG_PASSWORD: oquequehavelhinho15$
+      KONG_PG_DATABASE: kong_db
+    networks:
+      - petdigital-net
+
+  kong-gateway:
+    image: kong:latest
+    container_name: kong-gateway
+    restart: always
+    depends_on:
+      - kong-migrations
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: kong-db
+      KONG_PG_USER: kong
+      KONG_PG_PASSWORD: oquequehavelhinho15$
+      KONG_PG_DATABASE: kong_db
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+    ports:
+      - '8000:8000'
+      - '8443:8443'
+      - '8001:8001'
+      - '8444:8444'
+    networks:
+      - petdigital-net
+
+  sonarqube-db:
+    image: postgres:17
+    container_name: sonarqube-db
+    restart: always
+    environment:
+      POSTGRES_USER: sonarqube
+      POSTGRES_PASSWORD: oquequehavelhinho16$
+      POSTGRES_DB: sonarqube_db
+    volumes:
+      - sonarqube_db_data:/var/lib/postgresql/data
+    networks:
+      - petdigital-net
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: sonarqube
+    restart: always
+    depends_on:
+      - sonarqube-db
+    ports:
+      - '9000:9000'
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://sonarqube-db:5432/sonarqube_db
+      SONAR_JDBC_USERNAME: sonarqube
+      SONAR_JDBC_PASSWORD: oquequehavelhinho16$
+    volumes:
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    networks:
+      - petdigital-net
+  
+  pd-users-master:
+    image: postgres:17-alpine
+    container_name: pd-users-master
+    restart: always
+    user: postgres
+    healthcheck:
+          test: 'pg_isready -U pd_users --dbname=postgres'
+          interval: 10s
+          timeout: 5s
+          retries: 5
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: pd_users
+      POSTGRES_PASSWORD: oquequehavelhinho17$
+      POSTGRES_DB: postgres
+      POSTGRES_HOST_AUTH_METHOD: "scram-sha-256\nhost replication all 0.0.0.0/0 md5"
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    command: |
+      postgres 
+      -c wal_level=replica 
+      -c hot_standby=on 
+      -c max_wal_senders=10 
+      -c max_replication_slots=10 
+      -c hot_standby_feedback=on
+    volumes:
+      - ./00_init.sql:/docker-entrypoint-initdb.d/00_init.sql
+  
+  pd-users-replica:
+    image: postgres:17-alpine
+    container_name: pd-users-replica
+    restart: always
+    user: postgres
+    healthcheck:
+          test: 'pg_isready -U pd_users --dbname=postgres'
+          interval: 10s
+          timeout: 5s
+          retries: 5
+    ports:
+      - 5433:5432
+    environment:
+      PGUSER: replicator
+      PGPASSWORD: replicator_password
+    command: |
+      bash -c "
+      until pg_basebackup --pgdata=/var/lib/postgresql/data -R --slot=replication_slot --host=pd-users-master --port=5432
+      do
+      echo 'Waiting for primary to connect...'
+      sleep 1s
+      done
+      echo 'Backup done, starting replica...'
+      chmod 0700 /var/lib/postgresql/data
+      postgres
+      "
+    depends_on:
+      - pd-users-master
+
+networks:
+  petdigital-net:
+    external: true
+    name: petdigital-net
+    driver: bridge
+
+volumes:
+  kong_db_data:
+  sonarqube_db_data:
+  sonarqube_extensions:
+  sonarqube_logs:
