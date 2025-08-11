@@ -58,6 +58,8 @@ services:
     restart: always
     depends_on:
       - kong-migrations
+    volumes:
+      - ./kong.yml:/usr/local/kong/declarative/kong.yml
     environment:
       KONG_DATABASE: postgres
       KONG_PG_HOST: kong-db
@@ -69,11 +71,15 @@ services:
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+      KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
     ports:
       - '8000:8000'
       - '8443:8443'
       - '8001:8001'
+      - '8002:8002'
       - '8444:8444'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - petdigital-net
 
@@ -107,6 +113,19 @@ services:
       - sonarqube_logs:/opt/sonarqube/logs
     networks:
       - petdigital-net
+  
+  nexus-registry:
+    image: sonatype/nexus3
+    container_name: pd-nexus-registry
+    restart: always
+    ports:
+      - "8081:8081" 
+      - "8083:8083" 
+    volumes:
+      - nexus-data:/nexus-data 
+    environment:
+      - NEXUS_CONTEXT=/nexus 
+
   
   pd-users-master:
     image: postgres:17-alpine
@@ -176,3 +195,4 @@ volumes:
   sonarqube_db_data:
   sonarqube_extensions:
   sonarqube_logs:
+  nexus-data:

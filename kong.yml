@@ -1,0 +1,269 @@
+_format_version: "3.0"
+_transform: true
+
+# services:
+#   # Users Service
+#   - name: users-service
+#     url: http://host.docker.internal:3001
+#     plugins:
+#     - name: cors
+#       config:
+#         origins:
+#         - "*"
+#         methods:
+#         - GET
+#         - POST
+#         - PUT
+#         - DELETE
+#         - PATCH
+#         - OPTIONS
+#         headers:
+#         - Accept
+#         - Accept-Version
+#         - Content-Length
+#         - Content-MD5
+#         - Content-Type
+#         - Date
+#         - Authorization
+#         exposed_headers:
+#         - X-Auth-Token
+#         credentials: true
+#         max_age: 3600
+
+#   # Auth Service
+#   - name: auth-service
+#     url: http://host.docker.internal:3002
+#     plugins:
+#     - name: cors
+#       config:
+#         origins:
+#         - "*"
+#         methods:
+#         - GET
+#         - POST
+#         - PUT
+#         - DELETE
+#         - PATCH
+#         - OPTIONS
+#         headers:
+#         - Accept
+#         - Accept-Version
+#         - Content-Length
+#         - Content-MD5
+#         - Content-Type
+#         - Date
+#         - Authorization
+#         exposed_headers:
+#         - X-Auth-Token
+#         credentials: true
+#         max_age: 3600
+
+#   # Pets Service
+#   - name: pets-service
+#     url: http://host.docker.internal:3003
+#     plugins:
+#     - name: cors
+#       config:
+#         origins:
+#         - "*"
+#         methods:
+#         - GET
+#         - POST
+#         - PUT
+#         - DELETE
+#         - PATCH
+#         - OPTIONS
+#         headers:
+#         - Accept
+#         - Accept-Version
+#         - Content-Length
+#         - Content-MD5
+#         - Content-Type
+#         - Date
+#         - Authorization
+#         exposed_headers:
+#         - X-Auth-Token
+#         credentials: true
+#         max_age: 3600
+
+#   # Files Service
+#   - name: files-service
+#     url: http://host.docker.internal:3004
+#     plugins:
+#     - name: cors
+#       config:
+#         origins:
+#         - "*"
+#         methods:
+#         - GET
+#         - POST
+#         - PUT
+#         - DELETE
+#         - PATCH
+#         - OPTIONS
+#         headers:
+#         - Accept
+#         - Accept-Version
+#         - Content-Length
+#         - Content-MD5
+#         - Content-Type
+#         - Date
+#         - Authorization
+#         exposed_headers:
+#         - X-Auth-Token
+#         credentials: true
+#         max_age: 3600
+
+#   # Vacinas (Vaccines) Service
+#   - name: vacinas-service
+#     url: http://host.docker.internal:3005
+#     plugins:
+#     - name: cors
+#       config:
+#         origins:
+#         - "*"
+#         methods:
+#         - GET
+#         - POST
+#         - PUT
+#         - DELETE
+#         - PATCH
+#         - OPTIONS
+#         headers:
+#         - Accept
+#         - Accept-Version
+#         - Content-Length
+#         - Content-MD5
+#         - Content-Type
+#         - Date
+#         - Authorization
+#         exposed_headers:
+#         - X-Auth-Token
+#         credentials: true
+#         max_age: 3600
+
+# routes:
+#   # Users Service Routes
+#   - name: users-route
+#     service:
+#       name: users-service
+#     paths:
+#     - /api/users
+#     strip_path: false
+#     preserve_host: true
+
+#   # Auth Service Routes
+#   - name: auth-login-route
+#     service:
+#       name: auth-service
+#     paths:
+#     - /api/auth/login
+#     strip_path: false
+#     preserve_host: true
+
+#   - name: auth-register-route
+#     service:
+#       name: auth-service
+#     paths:
+#     - /api/auth/register
+#     strip_path: false
+#     preserve_host: true
+
+#   - name: auth-refresh-route
+#     service:
+#       name: auth-service
+#     paths:
+#     - /api/auth/refresh
+#     strip_path: false
+#     preserve_host: true
+
+#   - name: auth-logout-route
+#     service:
+#       name: auth-service
+#     paths:
+#     - /api/auth/logout
+#     strip_path: false
+#     preserve_host: true
+
+#   - name: auth-validate-route
+#     service:
+#       name: auth-service
+#     paths:
+#     - /api/auth/validate
+#     strip_path: false
+#     preserve_host: true
+
+#   # Pets Service Routes
+#   - name: pets-route
+#     service:
+#       name: pets-service
+#     paths:
+#     - /api/pets
+#     strip_path: false
+#     preserve_host: true
+
+#   # Files Service Routes
+#   - name: files-upload-route
+#     service:
+#       name: files-service
+#     paths:
+#     - /api/files/upload
+#     strip_path: false
+#     preserve_host: true
+
+#   - name: files-download-route
+#     service:
+#       name: files-service
+#     paths:
+#     - /api/files/download
+#     strip_path: false
+#     preserve_host: true
+
+#   - name: files-route
+#     service:
+#       name: files-service
+#     paths:
+#     - /api/files
+#     strip_path: false
+#     preserve_host: true
+
+#   # Vacinas (Vaccines) Service Routes
+#   - name: vacinas-route
+#     service:
+#       name: vacinas-service
+#     paths:
+#     - /api/vacinas
+#     strip_path: false
+#     preserve_host: true
+
+#   - name: vacinas-schedule-route
+#     service:
+#       name: vacinas-service
+#     paths:
+#     - /api/vacinas/schedule
+#     strip_path: false
+#     preserve_host: true
+
+#   - name: vacinas-history-route
+#     service:
+#       name: vacinas-service
+#     paths:
+#     - /api/vacinas/history
+#     strip_path: false
+#     preserve_host: true
+
+# # Global Plugins
+# plugins:
+#   - name: rate-limiting
+#     config:
+#       minute: 100
+#       hour: 1000
+#       policy: local
+
+#   - name: request-size-limiting
+#     config:
+#       allowed_payload_size: 10
+
+# consumers:
+#   - username: api-client
+#     custom_id: api-client-001
