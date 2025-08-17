@@ -11,6 +11,10 @@ import { LeadClosed } from './leads-closed.model';
 @Table({
   tableName: 'leads_qualified',
   timestamps: true,
+  paranoid: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
 })
 export class LeadQualified extends Model {
   @PrimaryKey

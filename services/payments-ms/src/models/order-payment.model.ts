@@ -7,7 +7,14 @@ import {
   AutoIncrement,
 } from 'sequelize-typescript';
 
-@Table({ tableName: 'order_payments', timestamps: true })
+@Table({
+  tableName: 'order_payments',
+  timestamps: true,
+  paranoid: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
+})
 export class OrderPayment extends Model {
   @PrimaryKey
   @AutoIncrement

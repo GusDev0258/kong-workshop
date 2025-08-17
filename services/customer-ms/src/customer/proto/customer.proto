@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package workshop;
+
+service CustomerService {
+  rpc GetRandomCustomer(Empty) returns (CustomerResponse) {};
+  rpc GetCustomerById(CustomerRequest) returns (CustomerResponse) {};
+}
+
+message Empty {}
+
+message CustomerRequest {
+  string uuid = 1;
+}
+
+message CustomerResponse {
+  string uuid = 1;
+  string zipCode = 2;
+  string city = 3;
+  string state = 4;
+}

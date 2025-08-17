@@ -26,6 +26,7 @@
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/jwt": "^11.0.0",
+    "@nestjs/mapped-types": "*",
     "@nestjs/microservices": "^11.1.6",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/sequelize": "^11.0.0",

@@ -9,6 +9,10 @@ import {
 @Table({
   tableName: 'geolocation',
   timestamps: true,
+  paranoid: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
 })
 export class GeoLocation extends Model {
   @PrimaryKey

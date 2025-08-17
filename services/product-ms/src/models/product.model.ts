@@ -10,7 +10,14 @@ import {
 import { ProductCategoryNameTranslation } from './product-category-name-translation.model';
 // O OrderItem virá de outro microserviço, então não o importamos para relação de banco de dados.
 
-@Table({ tableName: 'products', timestamps: true })
+@Table({
+  tableName: 'products',
+  timestamps: true,
+  paranoid: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
+})
 export class Product extends Model {
   @PrimaryKey
   @Column({

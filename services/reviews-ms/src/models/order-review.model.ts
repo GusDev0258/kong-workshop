@@ -6,7 +6,14 @@ import {
   PrimaryKey,
 } from 'sequelize-typescript';
 
-@Table({ tableName: 'order_reviews', timestamps: true })
+@Table({
+  tableName: 'order_reviews',
+  timestamps: true,
+  paranoid: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
+})
 export class OrderReview extends Model {
   @PrimaryKey
   @Column({
