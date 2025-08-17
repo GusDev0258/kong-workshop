@@ -1,5 +1,16 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Inject } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/sequelize';
+import { Customer } from 'apps/customer-ms/src/models/customer.model';
+import { GeoLocation } from 'apps/geolocation-ms/src/models/geo-location.model';
+import { LeadClosed } from 'apps/leads-ms/src/models/leads-closed.model';
+import { LeadQualified } from 'apps/leads-ms/src/models/leads-qualified.model';
+import { OrderItem } from 'apps/orders-ms/src/models/order-item.model';
+import { Order } from 'apps/orders-ms/src/models/order.model';
+import { OrderPayment } from 'apps/payment-ms/src/models/order-payment.model';
+import { ProductCategoryNameTranslation } from 'apps/product-ms/src/models/product-category-name-translation.model';
+import { Product } from 'apps/product-ms/src/models/product.model';
+import { OrderReview } from 'apps/reviews-ms/src/models/order-review.model';
+import { Sellers } from 'apps/seller-ms/src/models/sellers.model';
 import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
@@ -9,27 +20,27 @@ export class SeederService {
   constructor(
     @InjectConnection('source_db')
     private sourceConnection: Sequelize,
-    @InjectModel(Customer)
+    @Inject('CUSTOMER_REPOSITORY')
     private customerRepository: typeof Customer,
-    @InjectModel(Product)
+    @Inject('PRODUCT_REPOSITORY')
     private productRepository: typeof Product,
-    @InjectModel(ProductCategoryNameTranslation)
+    @Inject('PRODUCT_CATEGORY_NAME_REPOSITORY')
     private productCategoryNameTranslationRepository: typeof ProductCategoryNameTranslation,
-    @InjectModel(Review)
-    private reviewRepository: typeof Review,
-    @InjectModel(Order)
+    @Inject('ORDER_REVIEWS_REPOSITORY')
+    private reviewRepository: typeof OrderReview,
+    @Inject('ORDERS_REPOSITORY')
     private orderRepository: typeof Order,
-    @InjectModel(OrderItem)
+    @Inject('ORDERS_ITEMS_REPOSITORY')
     private orderItemRepository: typeof OrderItem,
-    @InjectModel(Payment)
-    private paymentRepository: typeof Payment,
-    @InjectModel(LeadQualified)
+    @Inject('ORDER_PAYMENTS_REPOSITORY')
+    private paymentRepository: typeof OrderPayment,
+    @Inject('LEAD_QUALIFIED_REPOSITORY')
     private leadQualifiedRepository: typeof LeadQualified,
-    @InjectModel(LeadClosed)
+    @Inject('LEAD_CLOSED_REPOSITORY')
     private leadClosedRepository: typeof LeadClosed,
-    @InjectModel(Seller)
-    private sellerRepository: typeof Seller,
-    @InjectModel(GeoLocation)
+    @Inject('SELLER_REPOSITORY')
+    private sellerRepository: typeof Sellers,
+    @Inject('GEO_LOCATION_REPOSITORY')
     private geoLocationRepository: typeof GeoLocation,
   ) {}
 }

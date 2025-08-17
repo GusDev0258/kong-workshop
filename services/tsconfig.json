@@ -1,26 +1,58 @@
+// {
+//   "compilerOptions": {
+//     "module": "nodenext",
+//     "moduleResolution": "nodenext",
+//     "resolvePackageJsonExports": true,
+//     "esModuleInterop": true,
+//     "isolatedModules": true,
+//     "declaration": true,
+//     "removeComments": true,
+//     "emitDecoratorMetadata": true,
+//     "experimentalDecorators": true,
+//     "allowSyntheticDefaultImports": true,
+//     "target": "ES2023",
+//     "sourceMap": true,
+//     "outDir": "./dist",
+//     "baseUrl": "./",
+//     "incremental": true,
+//     "skipLibCheck": true,
+//     "strictNullChecks": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "noImplicitAny": false,
+//     "strictBindCallApply": false,
+//     "noFallthroughCasesInSwitch": false,
+//     "paths": {}
+//   }
+// }
 {
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "resolvePackageJsonExports": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
+    "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
+    "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "noFallthroughCasesInSwitch": true,
+    "paths": { // <-- A MÁGICA ACONTECE AQUI
+      "@customer/*": ["apps/customer-ms/src/"],
+      "@product/*": ["apps/product-ms/src/"],
+      "@order/*": ["apps/orders-ms/src/"],
+      "@payment/*": ["apps/payment-ms/src/"],
+      "@review/*": ["apps/reviews-ms/src/"],
+      "@seller/*": ["apps/seller-ms/src/"],
+      "@lead/*": ["apps/leads-ms/src/"],
+      "@geolocation/*": ["apps/geolocation-ms/src/"],
+      "@seeder/*": ["apps/seeder/src/"]
+    }
   }
 }

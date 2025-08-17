@@ -10,7 +10,7 @@ import {
   tableName: 'geolocation',
   timestamps: true,
 })
-export class Geolocation extends Model {
+export class GeoLocation extends Model {
   @PrimaryKey
   @Column({ type: DataType.STRING, field: 'geolocation_zip_code_prefix' })
   geolocationZipCodePrefix: string;
