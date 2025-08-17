@@ -8,7 +8,7 @@ import {
 } from 'sequelize-typescript';
 import { OrderItem } from './order-item.model';
 
-@Table({ tableName: 'orders', timestamps: false })
+@Table({ tableName: 'orders', timestamps: true })
 export class Order extends Model {
   @PrimaryKey
   @Column({

@@ -8,7 +8,7 @@ import {
 
 @Table({
   tableName: 'geolocation',
-  timestamps: false,
+  timestamps: true,
 })
 export class Geolocation extends Model {
   @PrimaryKey

@@ -10,7 +10,7 @@ import {
 } from 'sequelize-typescript';
 import { Order } from './order.model';
 
-@Table({ tableName: 'order_items', timestamps: false })
+@Table({ tableName: 'order_items', timestamps: true })
 export class OrderItem extends Model {
   @PrimaryKey
   @AutoIncrement

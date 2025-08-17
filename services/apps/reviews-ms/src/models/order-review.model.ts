@@ -9,24 +9,45 @@ import {
 @Table({ tableName: 'order_reviews', timestamps: true })
 export class OrderReview extends Model {
   @PrimaryKey
-  @Column(DataType.STRING)
+  @Column({
+    type: DataType.STRING,
+    field: 'review_id',
+  })
   reviewId: string;
 
-  @Column(DataType.STRING)
+  @Column({
+    type: DataType.STRING,
+    field: 'order_id',
+  })
   orderId: string;
 
-  @Column(DataType.INTEGER)
+  @Column({
+    type: DataType.INTEGER,
+    field: 'review_score',
+  })
   reviewScore: number;
 
-  @Column(DataType.STRING)
+  @Column({
+    type: DataType.STRING,
+    field: 'review_comment_title',
+  })
   reviewCommentTitle: string;
 
-  @Column(DataType.TEXT)
+  @Column({
+    type: DataType.TEXT,
+    field: 'review_comment_message',
+  })
   reviewCommentMessage: string;
 
-  @Column(DataType.DATE)
+  @Column({
+    type: DataType.DATE,
+    field: 'review_creation_date',
+  })
   reviewCreationDate: Date;
 
-  @Column(DataType.DATE)
+  @Column({
+    type: DataType.DATE,
+    field: 'review_answer_timestamp',
+  })
   reviewAnswerTimestamp: Date;
 }

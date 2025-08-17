@@ -13,32 +13,59 @@ import { ProductCategoryNameTranslation } from './product-category-name-translat
 @Table({ tableName: 'products', timestamps: true })
 export class Product extends Model {
   @PrimaryKey
-  @Column(DataType.STRING)
+  @Column({
+    type: DataType.STRING,
+    field: 'product_id',
+  })
   productId: string;
 
   @ForeignKey(() => ProductCategoryNameTranslation)
-  @Column(DataType.STRING)
+  @Column({
+    type: DataType.STRING,
+    field: 'product_category_name',
+  })
   productCategoryName: string;
 
-  @Column(DataType.INTEGER)
-  productNameLenght: number;
+  @Column({
+    type: DataType.INTEGER,
+    field: 'product_name_length',
+  })
+  productNameLength: number;
 
-  @Column(DataType.INTEGER)
-  productDescriptionLenght: number;
+  @Column({
+    type: DataType.INTEGER,
+    field: 'product_description_length',
+  })
+  productDescriptionLength: number;
 
-  @Column(DataType.INTEGER)
+  @Column({
+    type: DataType.INTEGER,
+    field: 'product_photos_qty',
+  })
   productPhotosQty: number;
 
-  @Column(DataType.FLOAT)
+  @Column({
+    type: DataType.FLOAT,
+    field: 'product_weight_g',
+  })
   productWeightG: number;
 
-  @Column(DataType.FLOAT)
+  @Column({
+    type: DataType.FLOAT,
+    field: 'product_length_cm',
+  })
   productLengthCm: number;
 
-  @Column(DataType.FLOAT)
+  @Column({
+    type: DataType.FLOAT,
+    field: 'product_height_cm',
+  })
   productHeightCm: number;
 
-  @Column(DataType.FLOAT)
+  @Column({
+    type: DataType.FLOAT,
+    field: 'product_width_cm',
+  })
   productWidthCm: number;
 
   @BelongsTo(() => ProductCategoryNameTranslation)

@@ -11,10 +11,16 @@ import { Product } from './product.model';
 @Table({ tableName: 'product_category_name_translation', timestamps: true })
 export class ProductCategoryNameTranslation extends Model {
   @PrimaryKey
-  @Column(DataType.STRING)
+  @Column({
+    type: DataType.STRING,
+    field: 'product_category_name',
+  })
   productCategoryName: string;
 
-  @Column(DataType.STRING)
+  @Column({
+    type: DataType.STRING,
+    field: 'product_category_name_english',
+  })
   productCategoryNameEnglish: string;
 
   @HasMany(() => Product)
