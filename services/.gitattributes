@@ -1,0 +1,14 @@
+olist.sqlite filter=lfs diff=lfs merge=lfs -text
+product-ms/dist/products.sqlite filter=lfs diff=lfs merge=lfs -text
+product-ms/products.sqlite filter=lfs diff=lfs merge=lfs -text
+sellers-ms/sellers.sqlite filter=lfs diff=lfs merge=lfs -text
+customer-ms/customer[[:space:]]copy.sqlite filter=lfs diff=lfs merge=lfs -text
+customer-ms/dist/customer.sqlite filter=lfs diff=lfs merge=lfs -text
+customer-ms/src/customer.sqlite filter=lfs diff=lfs merge=lfs -text
+geo-location-ms/geolocation.sqlite filter=lfs diff=lfs merge=lfs -text
+orders-ms/orders.sqlite filter=lfs diff=lfs merge=lfs -text
+product-ms/src/products.sqlite filter=lfs diff=lfs merge=lfs -text
+reviews-ms/reviews.sqlite filter=lfs diff=lfs merge=lfs -text
+customer-ms/customer.sqlite filter=lfs diff=lfs merge=lfs -text
+leads-ms/leads.sqlite filter=lfs diff=lfs merge=lfs -text
+payments-ms/payments.sqlite filter=lfs diff=lfs merge=lfs -text
