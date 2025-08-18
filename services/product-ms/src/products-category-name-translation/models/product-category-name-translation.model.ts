@@ -6,9 +6,16 @@ import {
   DataType,
   HasMany,
 } from 'sequelize-typescript';
-import { Product } from './product.model';
+import { Product } from '../../products/models/product.model';
 
-@Table({ tableName: 'product_category_name_translation', timestamps: true })
+@Table({
+  tableName: 'product_category_name_translation',
+  timestamps: true,
+  paranoid: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
+  deletedAt: 'deleted_at',
+})
 export class ProductCategoryNameTranslation extends Model {
   @PrimaryKey
   @Column({

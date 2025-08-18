@@ -3,7 +3,7 @@ import type { Response } from 'express';
 import { GetRandomCustomerUsecase } from 'src/use-cases/customer/get-random-customer/get-random-customer.usecase';
 import { GenerateJwtUsecase } from 'src/use-cases/generate-jwt/generate-jwt.usecase';
 
-@Controller('auth')
+@Controller('/api/auth')
 export class AuthController {
   constructor(
     private readonly generateJwtUsecase: GenerateJwtUsecase,
@@ -18,6 +18,10 @@ export class AuthController {
       httpOnly: true,
       expires: new Date(Date.now() + 900000),
     });
-    return `Customer ${customer.uuid} authenticated`;
+    response.cookie('customer_state', customer?.state, {
+      httpOnly: true,
+      expires: new Date(Date.now() + 900000),
+    });
+    return `Customer do servidor na porta: ${process.env.PORT || 3000} ${customer.uuid} Tu mora em ${customer?.state} authenticated`;
   }
 }

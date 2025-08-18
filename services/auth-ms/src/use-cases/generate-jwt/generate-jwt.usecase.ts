@@ -7,6 +7,13 @@ export class GenerateJwtUsecase {
   constructor(private readonly jwtService: JwtService) {}
 
   async execute(payload: CustomerResponse): Promise<string> {
-    return this.jwtService.signAsync({ ...payload });
+    return this.jwtService.signAsync(
+      {
+        ...payload,
+      },
+      {
+        issuer: 'trG5XYaXfx01Cf7gTiNpyd5Il6oe9zJt',
+      },
+    );
   }
 }

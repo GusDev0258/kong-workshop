@@ -7,7 +7,7 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-import { ProductCategoryNameTranslation } from './product-category-name-translation.model';
+import { ProductCategoryNameTranslation } from '../../products-category-name-translation/models/product-category-name-translation.model';
 // O OrderItem virá de outro microserviço, então não o importamos para relação de banco de dados.
 
 @Table({

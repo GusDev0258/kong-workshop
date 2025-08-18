@@ -4,6 +4,16 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "builder": "swc"
+    "builder": "swc",
+    "assets": [
+      {
+        "include": "**/*.sqlite",
+        "outDir": "dist"
+      },
+      {
+        "include": "**/*.proto",
+        "outDir": "dist"
+      }
+    ]
   }
 }

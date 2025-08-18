@@ -1,8 +1,8 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import type { CustomerClientGrpc } from '../interfaces/customer-client.grpc-interface';
 import type { ClientGrpc } from '@nestjs/microservices';
-import { firstValueFrom } from 'rxjs';
-import { CustomerResponse } from '../dtos/customer-response.dto';
+import { firstValueFrom, Observable } from 'rxjs';
+import type { CustomerResponse } from '../dtos/customer-response.dto';
 
 @Injectable()
 export class GetRandomCustomerUsecase implements OnModuleInit {
@@ -14,7 +14,7 @@ export class GetRandomCustomerUsecase implements OnModuleInit {
     this.customerGrpcClient =
       this.customerClient.getService<CustomerClientGrpc>('CustomerService');
   }
-  async execute(): Promise<CustomerResponse> {
+  async execute(): Promise<Observable<CustomerResponse>> {
     const customer = await firstValueFrom(
       this.customerGrpcClient.GetRandomCustomer({}),
     );
