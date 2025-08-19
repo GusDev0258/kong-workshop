@@ -242,7 +242,7 @@ services:
     name: front-end
     path_handling: v0
     paths:
-    - /ui
+    - /
     plugins:
     - config:
         credentials: false
@@ -280,7 +280,7 @@ services:
     regex_priority: 0
     request_buffering: true
     response_buffering: true
-    strip_path: false
+    strip_path: true
   write_timeout: 60000
 upstreams:
 - algorithm: round-robin
