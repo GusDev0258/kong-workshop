@@ -70,7 +70,3 @@ networks:
 
 volumes:
   kong_db_data:
-  sonarqube_db_data:
-  sonarqube_extensions:
-  sonarqube_logs:
-  nexus-data:
